@@ -1,0 +1,27 @@
+{
+    "name": "front-alpine",
+    "version": "1.0.0",
+    "description": "awas-modus",
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "compile": "sass src/style.scss src/style.min.css",
+        "watch": "sass -w src/style.scss src/style.min.css",
+        "serve": "http-server -S -C key/cert.pem -K key/key.pem --cors",
+        "build": "npx browserify -p esmify -r canvas-input-range src/canvas-drag.js src/range.min.js -o src/lib-bundle.js -t esmify"
+    },
+    "author": "Makin",
+    "license": "Confidential",
+    "dependencies": {
+        "browserify": "^17.0.0",
+        "canvas-input-range": "^0.3.8",
+        "esmify": "^2.1.1",
+        "http-server": "^14.1.1"
+    },
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "vinyl-buffer": "^1.0.1",
+        "vinyl-source-buffer": "^1.1.1",
+        "vinyl-source-stream": "^2.0.0"
+    }
+}

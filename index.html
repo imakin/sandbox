@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf8" />
+    <title>awas modus</title>
+    <link rel="stylesheet" href="src/style.min.css" />
+    <script src="src/js/petitevue.js"></script>
+    <script defer>
+        var jsfiles = [
+            "src/js/lib-bundle.js",
+            "src/js/main.js"
+        ];
+        jsfiles.forEach(src => {
+            let sc = document.createElement('script');
+            sc.src = `${src}?t=${Date.now()}`;
+            document.head.appendChild(sc);
+        });
+    </script>
+</head>
+<body class="bg-black" draggable="false" ="overflow: hidden;">
+    <div id="main" v-scope draggable="false">
+        <div
+            class="room"
+            :data-roomid="`${room_id}`"
+        >
+            <div id="question-block" :data-scene="`${animation_scene}`">
+                <div
+                    id="story"
+                    v-show="vshow.story"
+                    v-html="story[room_id].narative">
+                </div>
+                <div id="img-wrapper" v-show="vshow.img">
+                    <img src="src/asset/call-start.svg" id="img-svg" />
+                    <img src="src/asset/call-phone.png" id="img-phone" draggable="false" />
+                </div>
+                <div id="question" v-show="vshow.question">
+                    <div id="question-round"></div>
+                    <div id="question-rect">
+                        <div
+                            id="question-text"
+                            v-html="story[room_id].question"></div>
+                        <div id="choices">
+                            <div
+                                class="choice"
+                                v-for="(choice, index) in story[room_id].choices"
+                                :key="index"
+                                v-html="choice">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
