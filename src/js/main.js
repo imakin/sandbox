@@ -107,6 +107,8 @@ window.model_room = PetiteVue.reactive({
                 el('#story').classList.add('down');
                 document.body.classList.remove('bg-black');
                 document.body.classList.add('bg-blue');
+                el('#img-svg').src = document.location.href+'src/asset/call-on.svg';
+                el('#img-phone').remove();
                 setTimeout(()=>{
                     model_room.animation_scene = 2;
                 }, 500);
