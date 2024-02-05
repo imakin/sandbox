@@ -74,7 +74,7 @@ window.model_room = PetiteVue.reactive({
                 model_room.vshow.img = true;
                 let img = el('#img-svg');
                 let img_wrapper = img.parentElement;
-                img.src = 'src/asset/call-start.svg';
+                img.src = document.location.href+'src/asset/call-start.svg';
                 img_wrapper.style.top = '5vh';
 
                 //answer phone drag
