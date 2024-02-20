@@ -1,6 +1,54 @@
+import imageDrag from "./img-drag.js";
+import componentLoad from "./component-load.js";
+import TextTyper from "./texttyper.js";
+
 function el(selector){
     return document.querySelector(selector);
 }
+function els(selector){
+    return document.querySelectorAll(selector);
+}
+function els_act(selector,action){
+    let elems = els(selector);
+    Array.from(elems).forEach(action);
+}
+
+function shuffle(array_or_object) {
+    let keys = Object.keys(array_or_object);
+    let targetIndex = array_or_object.length;
+    let randomIndex;
+    // let targetKey;
+    // let randomKey;
+    // While there remain elements to shuffle.
+    while (targetIndex > 0) {
+        // Pick a remaining element.
+        randomIndex = Math.floor(Math.random() * targetIndex);
+        targetIndex--;
+        // targetKey = keys[targetIndex];
+        // randomKey = keys[randomIndex];
+        // And swap it with the current element.
+        let temp = array_or_object[targetIndex];
+        array_or_object[targetIndex] = array_or_object[randomIndex];
+        array_or_object[randomIndex] = temp;
+    }
+    return array_or_object;
+}
+
+function fadein(el, time=2, on_fade_in=null){
+    el.style.transition = `filter ${time}s`;
+    el.style.filter = 'opacity(0)';
+    setTimeout(e=>{
+        el.style.filter = 'opacity(1)';
+    },100);
+    setTimeout(on_fade_in, time*1000+100);
+}
+function fadeout(el, time=2, on_fade_out=null){
+    el.style.transition = `filter ${time}s`;
+    el.style.filter = 'opacity(1)';
+    setTimeout(e=>{el.style.filter = 'opacity(0)';},100);
+    setTimeout(on_fade_out, time*1000+100);
+}
+  
 
 window.model_room = PetiteVue.reactive({
     init: ()=>{
@@ -8,133 +56,307 @@ window.model_room = PetiteVue.reactive({
         model_room.animation_start();
     },
     vshow:{
+        startgame: false,
+        1: false,//room scenario 1
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        room: false,
         video: false,
         story: false,
         question: false,
         img: false,
+        imgs1lockscreen: false,
+        imgs1wapopup: false,
+        imgs1wabg: false,
+        imgs1waopen1: false,
+        imgs1waopen2: false,
+        imgs2lockscreen: false,
+        imgs2emailpopup: false,
+        imgs2emailopenbg: false,
+        imgs2bgquestion: false,
+        imgs3call: false,
+        imgs3phoneicon: false,
+        imgs3callbg: false,
+        imgs4adsbg: false,
+        imgs4adsimg: false,
+        imgs4adspopup: false,
+        imgs4questionbox: false,
     },
-    room_id: 0,
-    story:[
-        {
-            narative:`
-                <p>
-                    Ada panggilan masuk yang bilang kartu kreditmu terblokir.
-                    Cara untuk aktivasinya lagi adalah kirim nomor Kartu
-                    Kredit dan CVC/CVV.
-                </p>
-                <p class="quote">
-                    “KARTU KREDIT ANDA TERBLOKIR
-                    untuk aktifasi ulang silahkan tulis no. kartu kredit dan
-                    CVC/CVV anda.“
-                </p>
-                `,
-            question:`
-                <p>Apa yang kamu lakukan?</p>
-            `,
-            choices:[
-                'Kirim nomor kartu dan CVC/CVV',
-                'Cek status kartu kredit dari aplikasi',
-                'Block nomor pengirim pesan',
-            ]
+    room_id: "startgame",//room 0 : start
+    score: 0,//current score
+    questions: {
+        1: {
+            question: "Apa yang akan kamu lakukan?",
+            choices: [
+                {0: "Klik bukti pengiriman paket"},
+                {50: "Cek profil Whatsapp"},
+                {100: "Tidak menjawab pesan"},
+            ],
         },
-        {
-            narative: `
-                <p>
-                    Sekarang lagi tanggal tua, nominal di rekeningmu
-                    seadanya. Tiba-tiba, teman kamu pakai nomor barunya
-                    kasih kabar ada lowongan kerja. Syaratnya tinggal
-                    klik link di pesannya.
-                </p>
-                <p class="quote">
-                    “Hi, gue Andika dan gue lagi cari orang yang mau
-                    duit tambahan sekarang juga cuma kerjanya isi survey
-                    di sini”
-                </p>`,
-            question: `
-                <p>Apa yang kamu lakukan?</p>
-            `,
-        }
-    ],
+        2: {
+            question: "Kamu bakal ambil langkah apa?",
+            choices: [
+                {0: "Isi form data diri"},
+                {50: "Menghapus email"},
+                {100: "Report as spam"},
+            ],
+        },
+        3: {
+            question: "Kamu bakal ambil langkah apa?",
+            choices: [
+                {0: "Membiarkan lanjut bicara"},
+                {50: "Bertanya indentitas kantor"},
+                {100: "Berkata kalau tidak tertarik"},
+            ],
+        },
+        4: {
+            question: "Apa yang akan kamu lakukan?",
+            choices: [
+                {0: "Langsung klik iklan"},
+                {50: "Riset tentang lembaga investasi"},
+                {100: "Menutup iklan"},
+            ],
+        },
+    },
+    get_current_question: ()=>{
+        //get current questions based on current room_id
+        return model_room.questions[model_room.room_id];
+    },
+    get_current_choices_shuffled: ()=>{
+        shuffle(model_room.get_current_question().choices);
+        return model_room.get_current_question().choices;
+    },
+    choice_select(choice){
+        let additional_score = Object.keys(choice)[0];
+        model_room.score += parseInt(additional_score);
+    },
+    next_question(){
+        model_room.vshow[model_room.room_id] = false;//hide previous room
+        //set room_id to the next unseen room, and start animation
+        model_room.vshow.questionbox = false;
+        model_room.room_id = model_room.room_id + 1;
+        model_room.animation_scene = 0;
+        model_room.animation_start();
+    },
+    temp: null,//temporary variable
     animation_time_start: 0,
     animation_start: ()=>{
+        try {
+            let forceroomid = parseInt(
+                document.location.hash.replace('#','')
+            );
+            if (isNaN(forceroomid)){} else {
+                model_room.room_id = forceroomid;
+                document.location.hash = '';
+            }
+        }catch(e){}
+        
         model_room.animation_time_start = new Date().getTime() / 1000;
-        window.animation_interval = setInterval(model_room.story_loop[0],500)
+        try{clearInterval(window.animation_interval);}catch(e){}
+        window.animation_interval = setInterval(
+            ()=>{model_room.story_loop[model_room.room_id]()},
+            200
+        )
+    },
+    animation_stop: ()=>{
+        clearInterval(window.animation_interval);
     },
     animation_scene: 0,
     imgPhoneEvent: {
         mouse:0,
         touch:0
     },
-    story_loop:[
-        ()=>{
-            //1st story
-            let currentstep = new Date().getTime() / 1000 - model_room.animation_time_start;
+    story_loop:{
+        startgame: ()=>{
+            //start game
+            model_room.vshow.startgame = true;
+            model_room.animation_stop();
+            var imgCircle = document.getElementById('img-start-circle');
+            let next_room = function(){
+                imgCircle.removeEventListener('touchstart', next_room);
+                imgCircle.style.left = '72vw';
+                el('#room-start').style.filter = 'opacity(0)';
+                setTimeout(()=>{
+                    model_room.vshow.startgame = false;
+                    model_room.room_id = 1;//situation 1
+                    model_room.animation_start();
+                },1000);
+            };
+            imageDrag(imgCircle, 12, 72, next_room);
+        },
+        1: ()=>{
+            //situation 1
+            model_room.vshow[model_room.room_id] = true;
+            model_room.vshow.imgs1lockscreen = true;
+            model_room.vshow.imgs1wapopup = true;
             if (model_room.animation_scene==0){
-                console.log('check');
-                model_room.vshow.img = true;
-                let img = el('#img-svg');
-                let img_wrapper = img.parentElement;
-                img.src = document.location.href+'src/asset/call-start.svg';
-                img_wrapper.style.top = '5vh';
+                model_room.animation_stop();
+                let wapopup = el('#imgs1-wapopup');
+                // wapopup.outerHTML = wapopup.outerHTML;//reset event listener
+                // wapopup = el('#imgs1-wapopup');
+                model_room.vshow.imgs1wapopup = true;
+                let room1 = el('#room-s1');
+                fadein(room1, 2);
 
-                //answer phone drag
-                var imgPhone = document.getElementById('img-phone');
-                lib.imageDrag(imgPhone, 24, 60);
-                
-                let on_mouse_up = (e)=>{
-                    let posx_px = imgPhone.offsetLeft;
-                    let posx = 100*posx_px/window.innerWidth;//in vw
-                    console.log(posx)
-                    if (posx>=30){
-                        imgPhone.style.left = '60vw';
-                        //do 2nd scene
-                        model_room.animation_scene = 1;
-                        document.removeEventListener('mouseup', on_mouse_up);
-                        document.removeEventListener('touchend', on_mouse_up);
-                    }
-                    else {
-                        imgPhone.style.left = '24vw';
-                    }
-                };
-
-                model_room.imgPhoneEvent.mouse = document.addEventListener('mouseup',on_mouse_up)
-                model_room.imgPhoneEvent.touch = document.addEventListener('touchend',on_mouse_up)
+                let force_scene1;
+                force_scene1 = function(){
+                    clearTimeout(model_room.temp);
+                    wapopup.removeEventListener('click', force_scene1);
+                    wapopup.removeEventListener('touchstart', force_scene1);
+                    model_room.animation_scene = 1;
+                    model_room.animation_start();
+                    console.log('triggered');
+                }
+                //trigger next scene by timeout
+                model_room.temp = setTimeout(force_scene1, 5000);
+                //or trigger next scene by click
+                wapopup.addEventListener('click', force_scene1);
+                wapopup.addEventListener('touchstart', force_scene1);
             }
             else if (model_room.animation_scene==1){
-                //1st scene
-                console.log('check')
-                setTimeout(()=>{el('#img-wrapper').style.top = '0vh';},100);
-                el('#story').classList.add('down');
-                document.body.classList.remove('bg-black');
-                document.body.classList.add('bg-blue');
-                el('#img-svg').src = document.location.href+'src/asset/call-on.svg';
-                el('#img-phone').remove();
+                //showing the whatsapp
+                model_room.animation_stop();
+
+                let wa_bg = el('#imgs1-wabg');
+                model_room.vshow.imgs1wabg = true;
+                fadein(wa_bg, 0.5);
                 setTimeout(()=>{
+                    model_room.vshow.imgs1waopen1 = true;
+                },500);
+                setTimeout(()=>{
+                    model_room.vshow.imgs1waopen2 = true;
                     model_room.animation_scene = 2;
-                }, 500);
+                    model_room.animation_start();
+                },1000);
             }
-            if (model_room.animation_scene==2){
-                //2nd scene
-                console.log('check')
-                el('#img-wrapper').style.top = '-40vh';
-                el('#story').classList.add('absolute');
-                model_room.vshow.story = true;
-                model_room.vshow.question = true;
-                setTimeout(()=>{el('#question').style.bottom = '0vh';},100);
+            else if (model_room.animation_scene==2){
+                //show answer choices
+                model_room.animation_stop();
+                model_room.vshow.questionbox = true;
+                new TextTyper('#question-box .question-text',30);
+                els_act('#question-box .choice',(elem,index)=>{
+                    elem.style.display = 'none';
+                    setTimeout(()=>{
+                        elem.style.display = 'list-item';
+                    }, (3+index)*400)
+                });
             }
         },
-    ]
+        2: ()=>{
+            //situation 2
+            model_room.vshow[model_room.room_id] = true;
+            model_room.animation_stop();
+            if (model_room.animation_scene==0){
+                model_room.vshow.questionbox = false;
+                model_room.vshow.imgs2lockscreen = true;
+                let lockscreen = el('#imgs2-lockscreen');
+                fadein(lockscreen, 1);
+                let emailpopup = el('#imgs2-emailpopup');
+                setTimeout(()=>{
+                    model_room.vshow.imgs2emailpopup = true;
+                },1000);
+
+
+                let force_scene1 = function(){
+                    clearTimeout(model_room.temp);
+                    emailpopup.removeEventListener('click', force_scene1);
+                    emailpopup.removeEventListener('touchstart', force_scene1);
+                    model_room.animation_scene = 1;
+                    model_room.animation_start();
+                    console.log('triggered');
+                }
+                //trigger next scene by timeout
+                model_room.temp = setTimeout(force_scene1, 5000);
+                //or trigger next scene by click
+                emailpopup.addEventListener('click', force_scene1);
+                emailpopup.addEventListener('touchstart', force_scene1);
+            }
+            if (model_room.animation_scene==1){
+                //showing the email
+                model_room.vshow.imgs2emailpopup = false;
+                model_room.vshow.imgs2emailopenbg = true;
+                let emailopenbg = el('#imgs2-emailopenbg');
+                fadein(emailopenbg, 0.5);
+                let bgquestion = el('#imgs2-bgquestion');
+                bgquestion.style.top = '50vh';
+                model_room.vshow.imgs2bgquestion = true;
+                bgquestion.style.transition = 'top 2s';
+                setTimeout(()=>{
+                    bgquestion.style.top = '0vh';
+                },100);
+                setTimeout(()=>{
+                    model_room.vshow.questionbox = true;
+                    fadein(el('#question-box'), 1);
+                },2100);
+            }
+        },
+        3: ()=>{
+            //situation 3
+            model_room.vshow[model_room.room_id] = true;
+            model_room.animation_stop();
+            if (model_room.animation_scene==0){
+                model_room.vshow.imgs3call = true;
+                model_room.vshow.imgs3phoneicon = true;
+                fadein(el('#imgs3-call'),1);
+                let imgCircle = document.getElementById('imgs3-phoneicon');
+                fadein(el('#imgs3-phoneicon'),2);
+                let next_animation = ()=>{
+                    model_room.vshow.imgs3call = false;
+                    model_room.vshow.imgs3callbg = true;
+                    model_room.vshow.imgs3phoneicon = false;
+                    imgCircle.removeEventListener('touchstart', next_animation);
+                    model_room.animation_scene = 1;
+                    model_room.animation_start();
+                };
+                imageDrag(imgCircle, 10.5, 70.5, next_animation);
+            }
+            if (model_room.animation_scene==1){
+                model_room.vshow.questionbox = true;
+                fadein(el('#question-box'), 1);
+            }
+        },
+        4: ()=>{
+            //situation 4
+            model_room.vshow[model_room.room_id] = true;
+            model_room.animation_stop();
+            if (model_room.animation_scene==0){
+                model_room.vshow.imgs4adsbg = true;
+                fadein(el('#imgs4-adsbg'),1,()=>{
+                    model_room.vshow.imgs4adsimg = true;
+                    setTimeout(()=>{
+                        model_room.animation_scene = 1;
+                        model_room.animation_start();
+                    },4000)
+                });
+            }
+            if (model_room.animation_scene==1){
+                model_room.vshow.imgs4adspopup = true;
+                model_room.vshow.imgs4questionbox = true;
+                el('#imgs4-adsimg').style.filter =
+                    'brightness(0.3) blur(15px)'
+                setTimeout(()=>{
+                    model_room.vshow.questionbox = true;
+                    fadein(el('#question-box'), 1);
+                },1000);
+            }
+        },
+    },
 });
 
 function main() {
+    //all image must not be draggable
+    els_act('img', (img)=>{img.draggable = false;});
+    //start reactive template
     window.vueapp = PetiteVue.createApp(model_room);
-    vueapp.mount();    
+    vueapp.mount('#main');
+    //app animation init
     model_room.animation_start();
-
 }
 
 window.on_ready = function on_ready(cb,delay_ms=0){
-    let this_ = this;
+    let this_ = window.on_ready;
     if (this_.executed==undefined){
         this_.executed = {}
     }

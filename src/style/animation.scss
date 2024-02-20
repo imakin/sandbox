@@ -1,0 +1,47 @@
+
+@keyframes anim_wiggle {
+    0% { transform: rotateZ(2deg); }
+    25% { transform: rotateZ(-1.5deg); }
+    50% { transform: rotateZ(1deg); }
+    75% { transform: rotateZ(-0.5deg); }
+    100% { transform: rotateZ(0deg); }
+}
+.wiggle06 {
+    animation: anim_wiggle 0.6s linear 2;//default animation-iteration-count: 2
+}
+.wiggle02 {
+    animation: anim_wiggle 0.2s linear 2;
+}
+@keyframes anim_scalein {
+    0% { transform: scale(0.1); transform-origin: top left; }
+    100% { transform: scale(1); transform-origin: top left; }
+}
+.scalein{
+    animation: anim_scalein 0.2s linear;
+}
+
+/**
+ * Mixin for creating a scroll animation.
+ *
+ * @param {number} $start-position - The starting position of the scroll animation.
+ * @param {number} $end-position - The ending position of the scroll animation.
+ * @param {number} $duration - The duration of the scroll animation in milliseconds.
+ * @param {string} $timing-function - The timing function to be used for the scroll animation.
+ */
+$scroll_id: 0;
+@mixin scroll($start-position, $end-position, $duration, $timing-function) {
+    $animation-name: scrollanimation#{$scroll_id};
+
+    @keyframes #{$animation-name} {
+        0% { top: $start-position; }
+        100% { top: $end-position; }
+    }
+
+    position: absolute;
+    top: $start-position;
+
+    animation: $animation-name $duration $timing-function;
+    animation-fill-mode: forwards;
+
+    $scroll_id: $scroll_id + 1 !global;
+}

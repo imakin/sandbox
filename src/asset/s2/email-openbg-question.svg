@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="2160"
+   height="3840"
+   viewBox="0 0 2160 3840"
+   fill="none"
+   version="1.1"
+   id="svg665"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <rect
+     y="2287"
+     width="2160"
+     height="1553"
+     fill="#171717"
+     id="rect608"
+     x="0" />
+  <line
+     y1="2285.5601"
+     x2="2160"
+     y2="2285.5601"
+     stroke="#4b4b4d"
+     stroke-width="2.88"
+     id="line610"
+     x1="0" />
+  <path
+     d="m 144,2379.16 v 103.68"
+     stroke="#007aff"
+     stroke-width="8.64"
+     stroke-linecap="round"
+     id="path612" />
+  <path
+     d="M 92.1597,2431 H 195.84"
+     stroke="#007aff"
+     stroke-width="8.64"
+     stroke-linecap="round"
+     id="path614" />
+  <rect
+     x="267.88"
+     y="2347.8799"
+     width="1789.24"
+     height="166.24001"
+     rx="83.120003"
+     fill="#2c2c2e"
+     stroke="#4b4b4d"
+     stroke-width="5.76"
+     id="rect616" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="m 1935.96,2387.8 h 46.08 c 11.14,0 20.16,9.03 20.16,20.16 v 17.98 c 0,0.25 0,0.49 -0.01,0.74 h -14.39 c -18.29,0 -33.12,14.83 -33.12,33.12 v 14.4 h -18.72 c -11.13,0 -20.16,-9.03 -20.16,-20.16 v -46.08 c 0,-11.13 9.03,-20.16 20.16,-20.16 z m 27.36,85.53 c 3.57,-1.09 6.8,-3.15 9.3,-6.02 l 24.59,-28.1 c 1.05,-1.19 1.95,-2.5 2.68,-3.89 h -12.09 c -13.52,0 -24.48,10.96 -24.48,24.48 z m 18.72,-94.17 h -46.08 c -15.9,0 -28.8,12.89 -28.8,28.8 v 46.08 c 0,15.9 12.9,28.8 28.8,28.8 h 21.49 c 8.31,0 16.21,-3.59 21.68,-9.84 l 24.59,-28.1 c 4.59,-5.25 7.12,-11.99 7.12,-18.96 v -17.98 c 0,-15.91 -12.89,-28.8 -28.8,-28.8 z"
+     fill="#007aff"
+     id="path618" />
+  <defs
+     id="defs663">
+    <clipPath
+       id="clip0_70_2491">
+      <rect
+         width="2160"
+         height="3840"
+         fill="white"
+         id="rect660" />
+    </clipPath>
+  </defs>
+</svg>

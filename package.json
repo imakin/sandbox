@@ -8,7 +8,8 @@
         "compile": "sass src/style.scss src/style.min.css",
         "watch": "sass -w src/style.scss src/style.min.css",
         "serve": "http-server -S -C key/cert.pem -K key/key.pem --cors",
-        "build": "npx browserify -p esmify -r canvas-input-range src/canvas-drag.js src/range.min.js -o src/lib-bundle.js -t esmify"
+        "wrong_build": "npx browserify -p esmify -r canvas-input-range src/canvas-drag.js src/range.min.js -o src/lib-bundle.js -t esmify",
+        "build": "npx gulp"
     },
     "author": "Makin",
     "license": "Confidential",

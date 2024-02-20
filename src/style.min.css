@@ -1,3 +1,50 @@
+@keyframes anim_wiggle {
+  0% {
+    transform: rotateZ(2deg);
+  }
+  25% {
+    transform: rotateZ(-1.5deg);
+  }
+  50% {
+    transform: rotateZ(1deg);
+  }
+  75% {
+    transform: rotateZ(-0.5deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+.wiggle06 {
+  animation: anim_wiggle 0.6s linear 2;
+}
+
+.wiggle02 {
+  animation: anim_wiggle 0.2s linear 2;
+}
+
+@keyframes anim_scalein {
+  0% {
+    transform: scale(0.1);
+    transform-origin: top left;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: top left;
+  }
+}
+.scalein {
+  animation: anim_scalein 0.2s linear;
+}
+
+/**
+ * Mixin for creating a scroll animation.
+ *
+ * @param {number} $start-position - The starting position of the scroll animation.
+ * @param {number} $end-position - The ending position of the scroll animation.
+ * @param {number} $duration - The duration of the scroll animation in milliseconds.
+ * @param {string} $timing-function - The timing function to be used for the scroll animation.
+ */
 .bg-blue {
   background-color: #225ef2;
 }
@@ -15,6 +62,16 @@ body {
   font-size: 1vw;
   transition: background-color 1s;
   min-height: 100vh;
+  background-color: #020e82;
+}
+
+.fullwidthabsolute {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: auto;
+  margin: 0;
 }
 
 #main {
@@ -50,7 +107,6 @@ body {
 }
 
 #img-wrapper {
-  user-select: none;
   z-index: 1;
   position: absolute;
   width: 98vw;
@@ -105,7 +161,174 @@ body {
   top: 5vh;
 }
 
-#question {
+#room-start {
+  position: absolute;
+  left: 0vw;
+  top: 0vh;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("asset/start/bg-start.jpg");
+  background-size: 100% auto;
+  background-position: top auto;
+  filter: opacity(1);
+  transition: filter 2s;
+}
+#room-start #img-start-circle {
+  position: absolute;
+  left: 12vw;
+  top: 115vw;
+  width: 16vw;
+  height: auto;
+  transition: left ease-out 0.5s;
+}
+
+#room-s1 {
+  filter: opacity(0);
+  transition: filter 2s;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#room-s1 #imgs1-wapopup {
+  position: absolute;
+  left: 4.6296296296vw;
+  top: 26.0416666667vh;
+  width: 90.787037037vw;
+  height: auto;
+  object-fit: cover;
+  animation-iteration-count: 2;
+  cursor: pointer;
+}
+#room-s1 #imgs1-waopen1 {
+  position: absolute;
+  left: 7.5vw;
+  top: 22.1354166667vh;
+  width: 73.4722222222vw;
+  height: auto;
+}
+#room-s1 #imgs1-waopen2 {
+  position: absolute;
+  left: 5.6018518519vw;
+  top: 39.1145833333vh;
+  width: 40vw;
+  height: auto;
+}
+
+#room-s2 #imgs2-emailpopup {
+  position: absolute;
+  z-index: 2;
+  left: 4.5833333333vw;
+  top: 25.8072916667vh;
+  width: 90.787037037vw;
+  height: auto;
+}
+
+#room-s3 #imgs3-phoneicon {
+  position: absolute;
+  z-index: 2;
+  left: 10.5vw;
+  top: 113vw;
+  height: 19.5vw;
+  width: auto;
+  transition: left 0.5s;
+}
+
+#room-s4 {
+  background: black;
+}
+#room-s4 #imgs4-adsbg {
+  z-index: 4;
+}
+#room-s4 #imgs4-adsimg {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: -26vh;
+  width: 100vw;
+  height: auto;
+  position: absolute;
+  top: -3vh;
+  animation: scrollanimation0 4s cubic-bezier(0.93, 0.21, 0.63, 0.43);
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  filter: brightness(1) blur(0px);
+  transition: filter 1s;
+}
+@keyframes scrollanimation0 {
+  0% {
+    top: -3vh;
+  }
+  100% {
+    top: -26vh;
+  }
+}
+#room-s4 #imgs4-adspopup {
+  position: absolute;
+  z-index: 3;
+  top: 27.2091145833vh;
+  left: 8.6111111111vw;
+  width: 84.6296296296vw;
+  height: auto;
+}
+#room-s4 #imgs4-questionbox {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  width: 100vw;
+  height: auto;
+  position: absolute;
+  top: 88.1vh;
+  animation: scrollanimation1 1s ease-in;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+@keyframes scrollanimation1 {
+  0% {
+    top: 88.1vh;
+  }
+  100% {
+    top: 60vh;
+  }
+}
+
+#question-box {
+  position: absolute;
+  left: 0px;
+  top: 68.4635416667vh;
+  width: 100vw;
+  height: auto;
+  text-align: center;
+  z-index: 5;
+  color: white;
+}
+#question-box .question-text {
+  display: block;
+  text-align: center;
+  font-size: 5.2em;
+  font-weight: bold;
+  margin-bottom: 0.8em;
+}
+#question-box ol {
+  list-style-type: upper-alpha;
+  margin: 0;
+}
+#question-box li.choice {
+  cursor: pointer;
+  display: list-item;
+  list-style-position: inside;
+  font-size: 4.0181818182em;
+  text-align: left;
+  background-color: #4b4b4d;
+  color: white;
+  border-radius: 3vh;
+  border: none;
+  box-sizing: border-box;
+  width: 64.5833333333vw;
+  margin: 0.5vh auto;
+  padding: 3vw 5vw;
+}
+
+#old-question {
   position: absolute;
   bottom: -40vh;
   height: 40vh;
@@ -113,31 +336,31 @@ body {
   transition: top 1s, bottom 1s;
   z-index: 2;
 }
-#question #question-round {
+#old-question #question-round {
   background-color: #96e2fa;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
   width: 100vw;
   height: 5vh;
 }
-#question #question-rect {
+#old-question #question-rect {
   background-color: #96e2fa;
   width: 100vw;
   height: 35vh;
   padding-top: 5vh;
   color: #225ef2;
 }
-#question #question-text {
+#old-question #question-text {
   font-size: 3em;
 }
-#question #choices {
+#old-question #choices {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   height: auto;
 }
-#question .choice {
+#old-question .choice {
   font-size: 2em;
   color: #225ef2;
   background-color: rgb(255, 255, 255);
@@ -149,8 +372,23 @@ body {
   transition: background-color 1s;
   cursor: pointer;
 }
-#question .choice:hover {
+#old-question .choice:hover {
   background-color: rgb(200, 200, 200);
+}
+
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+.hidden {
+  display: none;
+  font-size: 0;
+  letter-spacing: 0;
 }
 
 /*# sourceMappingURL=style.min.css.map */

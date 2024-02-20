@@ -7,50 +7,130 @@
     <script src="src/js/petitevue.js"></script>
     <script defer>
         var jsfiles = [
-            "src/js/lib-bundle.js",
+            // "src/js/lib-bundle.js",
             "src/js/main.js"
         ];
         jsfiles.forEach(src => {
             let sc = document.createElement('script');
             sc.src = `${src}?t=${Date.now()}`;
+            sc.type = "module";
             document.head.appendChild(sc);
         });
     </script>
 </head>
-<body class="bg-black" draggable="false" ="overflow: hidden;">
-    <div id="main" v-scope draggable="false">
-        <div
-            class="room"
-            :data-roomid="`${room_id}`"
-        >
-            <div id="question-block" :data-scene="`${animation_scene}`">
-                <div
-                    id="story"
-                    v-show="vshow.story"
-                    v-html="story[room_id].narative">
-                </div>
-                <div id="img-wrapper" v-show="vshow.img">
-                    <img src="src/asset/call-start.svg" id="img-svg" />
-                    <img src="src/asset/call-phone.png" id="img-phone" draggable="false" />
-                </div>
-                <div id="question" v-show="vshow.question">
-                    <div id="question-round"></div>
-                    <div id="question-rect">
-                        <div
-                            id="question-text"
-                            v-html="story[room_id].question"></div>
-                        <div id="choices">
-                            <div
-                                class="choice"
-                                v-for="(choice, index) in story[room_id].choices"
-                                :key="index"
-                                v-html="choice">
-                            </div>
-                        </div>
+<body class="bg-black"  class="no-select" style="overflow: hidden;">
+    <script type="module">
+        import componentLoad from "./src/js/component-load.js";
+        componentLoad("src/js/components/questionbox.html");
+    </script>
+    <div id="main" class="no-select" v-scope>
+        <div id="room-start" class="no-select" v-show="vshow.startgame">
+            <img id="img-start-text" class="no-select fullwidthabsolute" src="src/asset/start/bg-text.svg" />
+            <img src="src/asset/start/elips.svg" id="img-start-circle" />
+        </div>
+        <div id="room-s1" class="no-select" v-show="vshow[1]">
+            <img
+                src="src/asset/s1/lockscreen.svg"
+                id="imgs1-lockscreen"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs1lockscreen"/>
+            <img
+                src="src/asset/s1/wa-popup-fit.svg"
+                id="imgs1-wapopup"
+               
+                v-show="vshow.imgs1wapopup"
+                class="wiggle06"/>
 
-                    </div>
-                </div>
+            <img
+                src="src/asset/s1/wa-open-empty.svg"
+                id="imgs1-wabg"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs1wabg" />
+            <img
+                src="src/asset/s1/wa-open-1.png"
+                id="imgs1-waopen1"
+                v-show="vshow.imgs1waopen1"
+                class="scalein" />
+            <img
+                src="src/asset/s1/wa-open-2.png"
+                id="imgs1-waopen2"
+                v-show="vshow.imgs1waopen2"
+                class="scalein" />
+        </div>
+        <div id="room-s2" class="no-select" v-show="vshow[2]">
+            <img
+                src="src/asset/s2/lockscreen.svg"
+                id="imgs2-lockscreen"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs2lockscreen" />
+            <img src="src/asset/s2/email-popup.svg"
+                id="imgs2-emailpopup"
+                v-show="vshow.imgs2emailpopup"
+                class="wiggle06" />
+            <img src="src/asset/s2/email-openbg-noquestion.svg"
+                id="imgs2-emailopenbg"
+                v-show="vshow.imgs2emailopenbg"
+                class="fullwidthabsolute"/>
+            <img src="src/asset/s2/email-openbg-question.svg"
+                id="imgs2-bgquestion"
+                v-show="vshow.imgs2bgquestion"
+                class="fullwidthabsolute"/>
+        </div>
+        <div id="room-s3" class="no-select" v-show="vshow[3]">
+            <img
+                src="src/asset/s3/call.svg"
+                id="imgs3-call"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs3call" />
+            <img src="src/asset/s3/phone-icon.svg"
+                id="imgs3-phoneicon"
+                v-show="vshow.imgs3phoneicon"
+                class="" />
+            <img
+                src="src/asset/s3/call-bg.svg"
+                id="imgs3-callbg"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs3callbg" />
+        </div>
+        <div id="room-s4" class="no-select" vshow="vshow[4]">
+            <img
+                src="src/asset/s4/ads-bg.svg"
+                id="imgs4-adsbg"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs4adsbg" />
+            <img src="src/asset/s4/ads-img2.png"
+                id="imgs4-adsimg"
+                v-show="vshow.imgs4adsimg"
+                class="" />
+            <img src="src/asset/s4/ads-popup.png"
+                id="imgs4-adspopup"
+                v-show="vshow.imgs4adspopup"
+                class="scalein" />
+            <img src="src/asset/s4/questionbox.svg"
+                id="imgs4-questionbox"
+                v-show="vshow.imgs4questionbox"
+                />
+        </div>
+        <div
+            id="question-box"
+            :class="[`question`,`${model_room.room_id}`]"
+            v-show="vshow.questionbox"
+            v-if="model_room.get_current_question()"
+            >
+            <div class="question-text" v-html="model_room.get_current_question().question">
             </div>
+            <ol>
+                <li
+                    v-for="choice 
+                        in model_room.get_current_choices_shuffled()"
+                    class="choice"
+                    @click="model_room.choice_select(choice);
+                            model_room.next_question();"
+                    >
+                        <span v-html="choice[Object.keys(choice)[0]]">
+                        </span>
+                </li>
+            </ol>
         </div>
     </div>
 </body>
