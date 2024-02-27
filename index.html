@@ -35,7 +35,7 @@
                 class="fullwidthabsolute"
                 v-show="vshow.imgs1lockscreen"/>
             <img
-                src="src/asset/s1/wa-popup-fit.svg"
+                src="src/asset/s1/wa-popup.png"
                 id="imgs1-wapopup"
                
                 v-show="vshow.imgs1wapopup"
@@ -92,7 +92,7 @@
                 class="fullwidthabsolute"
                 v-show="vshow.imgs3callbg" />
         </div>
-        <div id="room-s4" class="no-select" vshow="vshow[4]">
+        <div id="room-s4" class="no-select" v-show="vshow[4]">
             <img
                 src="src/asset/s4/ads-bg.svg"
                 id="imgs4-adsbg"
@@ -111,13 +111,95 @@
                 v-show="vshow.imgs4questionbox"
                 />
         </div>
+        <div id="room-s5" class="no-select" v-show="vshow[5]">
+            <img src="src/asset/s1/lockscreen.svg"
+                id="imgs5-lockscreen"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs5lockscreen" />
+            <img src="src/asset/s5/sms-popup.png"
+                id="imgs5-smspopup"
+                v-show="vshow.imgs5smspopup"
+                class="wiggle06" />
+
+            <img src="src/asset/s5/sms-bg.svg"
+                id="imgs5-smsbg"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs5smsbg" />
+            <img src="src/asset/s5/sms-open1.svg"
+                id="imgs5-smsopen1"
+                class="scalein"
+                v-show="vshow.imgs5smsopen1" />
+            <img src="src/asset/s5/questionbg.svg"
+                id="imgs5-questionbox"
+                v-show="vshow.imgs5questionbox" />
+        </div>
+        <div id="room-s6" class="no-select" v-show="vshow[6]">
+            <img
+                src="src/asset/s1/lockscreen.svg"
+                id="imgs6-lockscreen"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs6lockscreen"/>
+            <img
+                src="src/asset/s6/popup.png"
+                id="imgs6-wapopup"
+               
+                v-show="vshow.imgs6wapopup"
+                class="wiggle06"/>
+
+            <img
+                src="src/asset/s6/wa-open-empty.svg"
+                id="imgs6-wabg"
+                class="fullwidthabsolute"
+                v-show="vshow.imgs6wabg" />
+            <img
+                src="src/asset/s6/wa-open1.png"
+                id="imgs6-waopen1"
+                v-show="vshow.imgs6waopen1"
+                class="scalein" />
+        </div>
+        <div id="room-result" class="no-select" v-show="vshow.result">
+            <img id="result-bg"
+                src="src/asset/result/bg.svg"
+                v-show="vshow.resultbg"
+                class="fullwidthabsolute" />
+            <img id="result-neg"
+                src="src/asset/result/result-neg.png"
+                class="scalein-topcenter"
+                v-show="vshow.resultneg" />
+            <img id="result-pos"
+                src="src/asset/result/result-pos.png"
+                class="scalein-topcenter"
+                v-show="vshow.resultpos" />
+            <img id="result-call0"
+                src="src/asset/result/call0.png"
+                class="scalein-center"
+                v-show="vshow.resultcall0" />
+            <img id="result-call1"
+                src="src/asset/result/call1.png"
+                class="scalein-center"
+                v-show="vshow.resultcall1" />
+            <img id="result-textbg"
+                src="src/asset/result/text-bg.svg"
+                v-show="vshow.resulttextbg" />
+            <img id="result-textneg"
+                src="src/asset/result/text-neg.svg"
+                v-show="vshow.resulttextneg" />
+            <audio id="audio-call" src="src/asset/result/voice.ogg">
+            </audio>
+            <img id="result-ticket"
+                src="src/asset/result/ticket.svg"
+                v-show="vshow.resultticket" />
+        </div>
         <div
             id="question-box"
             :class="[`question`,`${model_room.room_id}`]"
             v-show="vshow.questionbox"
             v-if="model_room.get_current_question()"
             >
-            <div class="question-text" v-html="model_room.get_current_question().question">
+            <div
+                class="question-text"
+                v-html="model_room.get_current_question().question"
+                >
             </div>
             <ol>
                 <li

@@ -19,7 +19,36 @@
 .scalein{
     animation: anim_scalein 0.2s linear;
 }
+@keyframes anim_scalein_topcenter {
+    0% { transform: scale(0.1); transform-origin: top center; }
+    100% { transform: scale(1); transform-origin: top center; }
+}
+@keyframes anim_scalein_center {
+    0% { transform: scale(0.1); transform-origin: middle center; }
+    100% { transform: scale(1); transform-origin: middle center; }
+}
+.scalein-topcenter{
+    animation: anim_scalein_topcenter 0.3s linear;
+}
+.scalein-center{
+    animation: anim_scalein_center 0.2s linear;
+}
 
+
+$scaleheight_id: 0;
+@mixin scaleheight($height0, $height1, $duration:0.5s){
+    $animation-name: scaleHeight#{$scaleheight_id};
+    @keyframes #{$animation-name} {
+        from {
+            height: $height0;
+        }
+        to {
+            height: $height1;
+        }
+    }
+    animation: $animation-name $duration linear;
+    $scaleheight_id: $scaleheight_id + 1 !global;
+}
 /**
  * Mixin for creating a scroll animation.
  *

@@ -1,15 +1,15 @@
 {
-    "name": "front-alpine",
+    "name": "art-awasmodus",
     "version": "1.0.0",
-    "description": "awas-modus",
+    "description": "awas-modus makin",
     "private": true,
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "compile": "sass src/style.scss src/style.min.css",
-        "watch": "sass -w src/style.scss src/style.min.css",
+        "test": "node test.js",
+        "watch-sass": "sass -w src/style.scss src/style.min.css",
+        "watch": "tmux new-session -d -s art && tmux send-keys -t art 'tmux split-window -h' C-m && tmux send-keys -t art 'npm run watch-sass' C-m  && sleep 2 && tmux send-keys -t art:0.1 'npm run serve' C-m",
         "serve": "http-server -S -C key/cert.pem -K key/key.pem --cors",
-        "wrong_build": "npx browserify -p esmify -r canvas-input-range src/canvas-drag.js src/range.min.js -o src/lib-bundle.js -t esmify",
-        "build": "npx gulp"
+        "unused_wrong_build": "npx browserify -p esmify -r canvas-input-range src/canvas-drag.js src/range.min.js -o src/lib-bundle.js -t esmify",
+        "unused_build": "npx gulp"
     },
     "author": "Makin",
     "license": "Confidential",
@@ -21,6 +21,7 @@
     },
     "devDependencies": {
         "gulp": "^4.0.2",
+        "selenium-webdriver": "^4.18.1",
         "vinyl-buffer": "^1.0.1",
         "vinyl-source-buffer": "^1.1.1",
         "vinyl-source-stream": "^2.0.0"

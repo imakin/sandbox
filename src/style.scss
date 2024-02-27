@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import 'style/animation';
 
 $font_sans: sans-serif;
@@ -7,6 +8,19 @@ $dark: #020e82ff;
 
 $mockup_width: 2160px;
 $mockup_height: 3840px;
+
+
+@mixin designposition($top, $left, $width, $height: null) {
+    position: absolute;
+    top: 100vh * math.div($top, $mockup_height);
+    left: 100vw * math.div($left, $mockup_width);
+    width: 100vw * math.div($width, $mockup_width);
+    height: if(
+        $height != null,
+        100vh * math.div($height, $mockup_height),
+        auto
+    );
+}
 
 .bg-blue{
     background-color: $blue;
@@ -34,9 +48,9 @@ body{
 }
 #main{
     text-align: center;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
-    min-height: 80vh;
+    // padding-top: 5vh;
+    // padding-bottom: 5vh;
+    // min-height: 80vh;
     font-size: 1em;
 }
 #story{
@@ -133,7 +147,7 @@ body{
         top: 115vw;
         width: 16vw;
         height: auto;
-        transition: left ease-out 0.5s;
+        // transition: left ease-out 0.5s;
     }
 }
 #room-s1{
@@ -144,16 +158,13 @@ body{
     top: 0;
     #imgs1-wapopup{
         //design size
-        $left: 100px;
-        $top: 1000px;
         $width: 1961px;
         $height: 726px;
+        $top: 992px;
+        $left: 99px;
 
         position: absolute;
-        left: 100vw * calc($left / $mockup_width);
-        top: 100vh * calc($top / $mockup_height);
-        width: 100vw * calc($width / $mockup_width);
-        height: auto;
+        @include designposition($top, $left, $width);
         object-fit: cover;
         animation-iteration-count: 2;
         cursor: pointer;
@@ -166,10 +177,7 @@ body{
         $height: 617px;
 
         position: absolute;
-        left: 100vw * calc($left / $mockup_width);
-        top: 100vh * calc($top / $mockup_height);
-        width: 100vw * calc($width / $mockup_width);
-        height: auto;
+        @include designposition($top, $left, $width);
     }
     #imgs1-waopen2{
         //design size
@@ -179,10 +187,7 @@ body{
         $height: 344px;
 
         position: absolute;
-        left: 100vw * calc($left / $mockup_width);
-        top: 100vh * calc($top / $mockup_height);
-        width: 100vw * calc($width / $mockup_width);
-        height: auto;
+        @include designposition($top, $left, $width);
     }
 }
 #room-s2{
@@ -195,10 +200,7 @@ body{
 
         position: absolute;
         z-index: 2;
-        left: 100vw * calc($left / $mockup_width);
-        top: 100vh * calc($top / $mockup_height);
-        width: 100vw * calc($width / $mockup_width);
-        height: auto;
+        @include designposition($top, $left, $width);
     }
 }
 #room-s3{
@@ -225,7 +227,7 @@ body{
         top: -26vh;
         width: 100vw;
         height: auto;
-        @include scroll(-3vh, -26vh, 4s, cubic-bezier(0.93, 0.21, 0.63, 0.43));
+        @include scroll(-3vh, -26vh, 2s, cubic-bezier(0.93, 0.21, 0.63, 0.43));
         animation-iteration-count: 1;
 
         filter: brightness(1) blur(0px);
@@ -240,10 +242,7 @@ body{
         $top: 1044.83px;
         $left: 186px;
 
-        top: 100vh * calc($top / $mockup_height);
-        left: 100vw * calc($left / $mockup_width);
-        width: 100vw * calc($width / $mockup_width);
-        height: auto;
+        @include designposition($top, $left, $width);
     }
     #imgs4-questionbox{
         position: absolute;
@@ -253,6 +252,129 @@ body{
         height: auto;
         @include scroll(88.1vh, 60vh, 1s, ease-in);
         animation-iteration-count: 1;
+    }
+}
+#room-s5{
+    #imgs5-smspopup{
+        //design size
+        $width: 1961px;
+        $height: 687px;
+        $top: 992px;
+        $left: 99px;
+        
+        @include designposition($top, $left, $width);
+        
+    }
+    #imgs5-smsopen1{
+        //design size
+        $width: 1628px;
+        $height: 498px;
+        $top: 909px;
+        $left: 121px;
+
+        @include designposition($top, $left, $width);
+        
+    }
+    #imgs5-questionbox{
+        $width: 2160px;
+        $height: 1553px;
+        $top: 2287px;
+        $left: 0px;
+
+        @include designposition($top, $left, $width);        
+        @include scroll(88.1vh, 60vh, 1s, ease-in);
+    }
+}
+#room-s6{
+    #imgs6-wapopup{
+        //design size
+        $width: 1961px;
+        $height: 725px;
+        $top: 987px;
+        $left: 100px;
+
+        @include designposition($top, $left, $width);
+    }
+    #imgs6-waopen1{
+        //design size
+        $width: 1358px;
+        $height: 1423px;
+        $top: 801px;
+        $left: 144px;
+
+        @include designposition($top, $left, $width);
+    }
+}
+#room-result{
+    #result-bg{
+        transition: filter 1.5s;
+        filter: blur(0px);
+    }
+    #result-neg{
+        //design size
+        $width: 1844.5px;
+        $height: 1829px;
+        $top: 894px;
+        $left: 42px;
+        @include designposition($top, $left, $width);
+    }
+    #result-pos{
+        //design size
+        $width: 1844.5px;
+        $height: 1755px;
+        $top: 968px;
+        $left: 42px;
+        @include designposition($top, $left, $width);
+    }
+    #result-call0{
+        //design size
+        $width: 1635px;
+        $height: 410.97px;
+        $top: 116px;
+        $left: 263px;
+        $border-radius: 197px;
+        @include designposition($top, $left, $width);
+        z-index: 4;
+    }
+    #result-call1{
+        //design size
+        $width: 1635px;
+        $height: 627px;
+        $top: 116px;
+        $left: 263px;
+        $border-radius: 197px;
+        @include designposition($top, $left, $width);
+        @include scaleheight(411px, 627px, 0.3s);
+        z-index: 3;
+    }
+    #result-textneg{
+        //design size
+        $width: 1496.38px;
+        $height: 2172px;
+        $top: 1206px;
+        $left: 332.31px;
+        @include designposition($top, $left, $width);
+    }
+    #result-textbg{
+        //design size
+        $width: 1950px;
+        $height: 2850px;
+        $top: 903px;
+        $left: 101px;
+        $border-radius: 110px;
+        @include designposition($top, $left, $width);
+    }
+    #audio-call{
+        visibility: hidden;
+    }
+    #result-ticket{
+        //design size
+        $width: 1890px;
+        $height: 908.99px;
+        $top: 2823.5px;
+        $left: 155px;
+        @include designposition($top, $left, $width);
+    
     }
 }
 #question-box{

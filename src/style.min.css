@@ -37,6 +37,34 @@
   animation: anim_scalein 0.2s linear;
 }
 
+@keyframes anim_scalein_topcenter {
+  0% {
+    transform: scale(0.1);
+    transform-origin: top center;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: top center;
+  }
+}
+@keyframes anim_scalein_center {
+  0% {
+    transform: scale(0.1);
+    transform-origin: middle center;
+  }
+  100% {
+    transform: scale(1);
+    transform-origin: middle center;
+  }
+}
+.scalein-topcenter {
+  animation: anim_scalein_topcenter 0.3s linear;
+}
+
+.scalein-center {
+  animation: anim_scalein_center 0.2s linear;
+}
+
 /**
  * Mixin for creating a scroll animation.
  *
@@ -76,9 +104,6 @@ body {
 
 #main {
   text-align: center;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
-  min-height: 80vh;
   font-size: 1em;
 }
 
@@ -179,7 +204,6 @@ body {
   top: 115vw;
   width: 16vw;
   height: auto;
-  transition: left ease-out 0.5s;
 }
 
 #room-s1 {
@@ -191,8 +215,9 @@ body {
 }
 #room-s1 #imgs1-wapopup {
   position: absolute;
-  left: 4.6296296296vw;
-  top: 26.0416666667vh;
+  position: absolute;
+  top: 25.8333333333vh;
+  left: 4.5833333333vw;
   width: 90.787037037vw;
   height: auto;
   object-fit: cover;
@@ -201,15 +226,17 @@ body {
 }
 #room-s1 #imgs1-waopen1 {
   position: absolute;
-  left: 7.5vw;
+  position: absolute;
   top: 22.1354166667vh;
+  left: 7.5vw;
   width: 73.4722222222vw;
   height: auto;
 }
 #room-s1 #imgs1-waopen2 {
   position: absolute;
-  left: 5.6018518519vw;
+  position: absolute;
   top: 39.1145833333vh;
+  left: 5.6018518519vw;
   width: 40vw;
   height: auto;
 }
@@ -217,8 +244,9 @@ body {
 #room-s2 #imgs2-emailpopup {
   position: absolute;
   z-index: 2;
-  left: 4.5833333333vw;
+  position: absolute;
   top: 25.8072916667vh;
+  left: 4.5833333333vw;
   width: 90.787037037vw;
   height: auto;
 }
@@ -248,7 +276,7 @@ body {
   height: auto;
   position: absolute;
   top: -3vh;
-  animation: scrollanimation0 4s cubic-bezier(0.93, 0.21, 0.63, 0.43);
+  animation: scrollanimation0 2s cubic-bezier(0.93, 0.21, 0.63, 0.43);
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
   filter: brightness(1) blur(0px);
@@ -265,6 +293,7 @@ body {
 #room-s4 #imgs4-adspopup {
   position: absolute;
   z-index: 3;
+  position: absolute;
   top: 27.2091145833vh;
   left: 8.6111111111vw;
   width: 84.6296296296vw;
@@ -289,6 +318,123 @@ body {
   100% {
     top: 60vh;
   }
+}
+
+#room-s5 #imgs5-smspopup {
+  position: absolute;
+  top: 25.8333333333vh;
+  left: 4.5833333333vw;
+  width: 90.787037037vw;
+  height: auto;
+}
+#room-s5 #imgs5-smsopen1 {
+  position: absolute;
+  top: 23.671875vh;
+  left: 5.6018518519vw;
+  width: 75.3703703704vw;
+  height: auto;
+}
+#room-s5 #imgs5-questionbox {
+  position: absolute;
+  top: 59.5572916667vh;
+  left: 0vw;
+  width: 100vw;
+  height: auto;
+  position: absolute;
+  top: 88.1vh;
+  animation: scrollanimation2 1s ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes scrollanimation2 {
+  0% {
+    top: 88.1vh;
+  }
+  100% {
+    top: 60vh;
+  }
+}
+
+#room-s6 #imgs6-wapopup {
+  position: absolute;
+  top: 25.703125vh;
+  left: 4.6296296296vw;
+  width: 90.787037037vw;
+  height: auto;
+}
+#room-s6 #imgs6-waopen1 {
+  position: absolute;
+  top: 20.859375vh;
+  left: 6.6666666667vw;
+  width: 62.8703703704vw;
+  height: auto;
+}
+
+#room-result #result-bg {
+  transition: filter 1.5s;
+  filter: blur(0px);
+}
+#room-result #result-neg {
+  position: absolute;
+  top: 23.28125vh;
+  left: 1.9444444444vw;
+  width: 85.3935185185vw;
+  height: auto;
+}
+#room-result #result-pos {
+  position: absolute;
+  top: 25.2083333333vh;
+  left: 1.9444444444vw;
+  width: 85.3935185185vw;
+  height: auto;
+}
+#room-result #result-call0 {
+  position: absolute;
+  top: 3.0208333333vh;
+  left: 12.1759259259vw;
+  width: 75.6944444444vw;
+  height: auto;
+  z-index: 4;
+}
+#room-result #result-call1 {
+  position: absolute;
+  top: 3.0208333333vh;
+  left: 12.1759259259vw;
+  width: 75.6944444444vw;
+  height: auto;
+  animation: scaleHeight0 0.3s linear;
+  z-index: 3;
+}
+@keyframes scaleHeight0 {
+  from {
+    height: 411px;
+  }
+  to {
+    height: 627px;
+  }
+}
+#room-result #result-textneg {
+  position: absolute;
+  top: 31.40625vh;
+  left: 15.3847222222vw;
+  width: 69.2768518519vw;
+  height: auto;
+}
+#room-result #result-textbg {
+  position: absolute;
+  top: 23.515625vh;
+  left: 4.6759259259vw;
+  width: 90.2777777778vw;
+  height: auto;
+}
+#room-result #audio-call {
+  visibility: hidden;
+}
+#room-result #result-ticket {
+  position: absolute;
+  top: 73.5286458333vh;
+  left: 7.1759259259vw;
+  width: 87.5vw;
+  height: auto;
 }
 
 #question-box {
