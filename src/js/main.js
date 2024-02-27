@@ -179,28 +179,13 @@ window.model_room = PetiteVue.reactive({
             model_room.animation_scene = 0;
             model_room.animation_start();
         }
+        el('#audios3-call').pause();
+        el('#audios3-call').currentTime = 0;
+        model_room.idle_reset();
     },
     temp: null,//temporary variable
     animation_time_start: 0,
     animation_start: ()=>{
-        if (typeof(window.forceroomid_set)=='undefined'){
-            try {
-                let forceroomid = parseInt(
-                    document.location.hash.replace('#','')
-                );
-                if (
-                    isNaN(forceroomid)
-                    || typeof(window.forceroomid_set)!='undefined'
-                ){}
-                else {
-                    model_room.room_id = forceroomid;
-                }
-                if (document.location.hash=='#result'){
-                    model_room.room_situation_queue = [5];
-                }
-                window.forceroomid_set = true;
-            }catch(e){}
-        }
 
         model_room.animation_time_start = new Date().getTime() / 1000;
         try{clearInterval(window.animation_interval);}catch(e){}
@@ -217,8 +202,43 @@ window.model_room = PetiteVue.reactive({
         mouse:0,
         touch:0
     },
+    idle_checker: 0,
+    idle_reset(){
+        console.log('cancel reset, reset in 120s');
+        clearTimeout(model_room.idle_checker);
+        model_room.idle_checker = setTimeout(()=>{
+            model_room.story_reset();
+        },120*1000);
+    },
+    reset_time: 0,
     story_reset: ()=>{
+        let current_time = new Date().getTime()/1000;
+        if (current_time-model_room.reset_time<5){
+            console.log("will not reset repeatedly");
+            return;
+        }
+        model_room.reset_time = current_time;
+        console.log('reset');
         model_room.room_situation_queue = [1,2,3,4,5,6];
+        if (typeof(window.forceroomid_set)=='undefined'){
+            try {
+                let forceroomid = parseInt(
+                    document.location.hash.replace('#','')
+                );
+                if (
+                    isNaN(forceroomid)
+                    || typeof(window.forceroomid_set)!='undefined'
+                ){}
+                else {
+                    // model_room.room_id = forceroomid;
+                    model_room.room_situation_queue = [forceroomid];
+                }
+                if (document.location.hash=='#result'){
+                    model_room.room_situation_queue = [5];
+                }
+                window.forceroomid_set = true;
+            }catch(e){}
+        }
         for (let key in model_room.vshow){
             model_room.vshow[key] = false;
         }
@@ -228,6 +248,9 @@ window.model_room = PetiteVue.reactive({
         el('#room-start').style.filter = 'opacity(1)';
         el('#imgs4-adsimg').style.filter = 'none';
         el('#result-bg').style.filter = 'none';
+        el('#result-call0').style.filter = 'opacity(1)';
+        el('#img-start-circle').style.left = '12vw';
+        el('#imgs3-phoneicon').style.left = '10.5vw';
         model_room.animation_start();
     },
     story_reset_timer: 60,
@@ -239,6 +262,7 @@ window.model_room = PetiteVue.reactive({
             model_room.animation_stop();
             var imgCircle = document.getElementById('img-start-circle');
             let next_room = function(){
+                imgCircle.removeEventListener('click', next_room);
                 imgCircle.removeEventListener('touchstart', next_room);
                 imgCircle.style.left = '72vw';
                 el('#room-start').style.filter = 'opacity(0)';
@@ -260,6 +284,7 @@ window.model_room = PetiteVue.reactive({
                 // wapopup.outerHTML = wapopup.outerHTML;//reset event listener
                 // wapopup = el('#imgs1-wapopup');
                 model_room.vshow.imgs1wapopup = true;
+                el('#audio-notif').play();
                 let room1 = el('#room-s1');
                 fadein(room1, 2);
 
@@ -287,9 +312,11 @@ window.model_room = PetiteVue.reactive({
                 fadein(wa_bg, 0.5);
                 setTimeout(()=>{
                     model_room.vshow.imgs1waopen1 = true;
+                    el('#audio-wa').play();
                 },500);
                 setTimeout(()=>{
                     model_room.vshow.imgs1waopen2 = true;
+                    el('#audio-wa').play();
                     model_room.animation_scene = 2;
                     model_room.animation_start();
                 },1000);
@@ -319,6 +346,7 @@ window.model_room = PetiteVue.reactive({
                 let emailpopup = el('#imgs2-emailpopup');
                 setTimeout(()=>{
                     model_room.vshow.imgs2emailpopup = true;
+                    el('#audio-notif').play();
                 },1000);
 
 
@@ -365,6 +393,7 @@ window.model_room = PetiteVue.reactive({
                 fadein(el('#imgs3-call'),1);
                 let imgCircle = document.getElementById('imgs3-phoneicon');
                 fadein(el('#imgs3-phoneicon'),2);
+                el('#audio-ringtone').play();
                 let next_animation = ()=>{
                     model_room.vshow.imgs3call = false;
                     model_room.vshow.imgs3callbg = true;
@@ -372,10 +401,21 @@ window.model_room = PetiteVue.reactive({
                     imgCircle.removeEventListener('touchstart', next_animation);
                     model_room.animation_scene = 1;
                     model_room.animation_start();
+                    try{
+                        clearTimeout(model_room.temp);
+                    }catch(e){}
                 };
-                imageDrag(imgCircle, 10.5, 70.5, next_animation);
+                // imageDrag(imgCircle, 10.5, 70.5, next_animation);
+                model_room.temp = setTimeout(()=>{
+                    imgCircle.style.transition = 'left 1.5s';
+                    imgCircle.style.left = '70.5vw';
+                    setTimeout(next_animation,2000);
+                }, 1000);
             }
             if (model_room.animation_scene==1){
+                el('#audio-ringtone').pause();
+                el('#audio-ringtone').currentTime = 0;
+                el('#audios3-call').play();
                 model_room.vshow.questionbox = true;
                 fadein(el('#question-box'), 1);
             }
@@ -417,6 +457,7 @@ window.model_room = PetiteVue.reactive({
             }
             if (model_room.animation_scene==1){
                 model_room.vshow.imgs5smspopup = true;
+                el('#audio-notif').play();
                 let smspopup = el('#imgs5-smspopup');
                 model_room.temp = 0;
                 let force_scene2 = function(){
@@ -448,6 +489,7 @@ window.model_room = PetiteVue.reactive({
             if (model_room.animation_scene==0){
                 model_room.animation_stop();
                 let wapopup = el('#imgs6-wapopup');
+                el('#audio-notif').play();
                 // wapopup.outerHTML = wapopup.outerHTML;//reset event listener
                 // wapopup = el('#imgs6-wapopup');
                 model_room.vshow.imgs6wapopup = true;
@@ -478,6 +520,7 @@ window.model_room = PetiteVue.reactive({
                 fadein(wa_bg, 0.5);
                 setTimeout(()=>{
                     model_room.vshow.imgs6waopen1 = true;
+                    el('#audio-wa').play();
                     model_room.animation_scene = 2;
                     model_room.animation_start();
                 },1000);
@@ -521,6 +564,7 @@ window.model_room = PetiteVue.reactive({
             }
             if (model_room.animation_scene==1){
                 model_room.vshow.resultcall0 = true;
+                el('#audio-ringtone').play();
                 setTimeout(()=>{
                     model_room.animation_scene = 2;
                     model_room.animation_start();
@@ -530,6 +574,8 @@ window.model_room = PetiteVue.reactive({
                 // model_room.vshow.resultcall0 = false;
                 fadeout(el('#result-call0'), 0.5);
                 model_room.vshow.resultcall1 = true;
+                el('#audio-ringtone').pause();
+                el('#audio-ringtone').currentTime = 0;
                 setTimeout(()=>{
                     model_room.animation_scene = 3;
                     model_room.animation_start();
@@ -587,7 +633,7 @@ function main() {
     window.vueapp = PetiteVue.createApp(model_room);
     vueapp.mount('#main');
     //app animation init
-    model_room.animation_start();
+    model_room.story_reset();
 }
 
 window.on_ready = function on_ready(cb,delay_ms=0){

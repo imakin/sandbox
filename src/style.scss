@@ -364,9 +364,6 @@ body{
         $border-radius: 110px;
         @include designposition($top, $left, $width);
     }
-    #audio-call{
-        visibility: hidden;
-    }
     #result-ticket{
         //design size
         $width: 1890px;
@@ -375,6 +372,16 @@ body{
         $left: 155px;
         @include designposition($top, $left, $width);
     
+    }
+    #result-callface{
+        //design size
+        $width: 206.56px;
+        $height: 206.56px;
+        $top: 197px;
+        $left: 360px;
+        @include designposition($top, $left, $width);
+        z-index: 5;
+
     }
 }
 #question-box{
@@ -493,4 +500,7 @@ body{
     display: none;
     font-size: 0;
     letter-spacing: 0;
+}
+audio{
+    visibility: hidden;
 }

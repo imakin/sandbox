@@ -426,15 +426,20 @@ body {
   width: 90.2777777778vw;
   height: auto;
 }
-#room-result #audio-call {
-  visibility: hidden;
-}
 #room-result #result-ticket {
   position: absolute;
   top: 73.5286458333vh;
   left: 7.1759259259vw;
   width: 87.5vw;
   height: auto;
+}
+#room-result #result-callface {
+  position: absolute;
+  top: 5.1302083333vh;
+  left: 16.6666666667vw;
+  width: 9.562962963vw;
+  height: auto;
+  z-index: 5;
 }
 
 #question-box {
@@ -552,6 +557,10 @@ body {
   display: none;
   font-size: 0;
   letter-spacing: 0;
+}
+
+audio {
+  visibility: hidden;
 }
 
 /*# sourceMappingURL=style.min.css.map */

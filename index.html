@@ -168,6 +168,7 @@
                 src="src/asset/result/result-pos.png"
                 class="scalein-topcenter"
                 v-show="vshow.resultpos" />
+
             <img id="result-call0"
                 src="src/asset/result/call0.png"
                 class="scalein-center"
@@ -176,14 +177,17 @@
                 src="src/asset/result/call1.png"
                 class="scalein-center"
                 v-show="vshow.resultcall1" />
+            <img id="result-callface"
+                src="src/asset/result/face.png"
+                class="scalein-center"
+                v-show="(vshow.resultcall0||vshow.resultcall1)" />
+
             <img id="result-textbg"
                 src="src/asset/result/text-bg.svg"
                 v-show="vshow.resulttextbg" />
             <img id="result-textneg"
                 src="src/asset/result/text-neg.svg"
                 v-show="vshow.resulttextneg" />
-            <audio id="audio-call" src="src/asset/result/voice.ogg">
-            </audio>
             <img id="result-ticket"
                 src="src/asset/result/ticket.svg"
                 v-show="vshow.resultticket" />
@@ -229,5 +233,11 @@
             </button>
         </div>
     </div>
+    <audio id="audio-call" src="src/asset/result/voice.ogg">
+    </audio>
+    <audio id="audios3-call" src="src/asset/s3/call.ogg"></audio>
+    <audio id="audio-notif" src="src/asset/tone_notif.mpga"></audio>
+    <audio id="audio-ringtone" src="src/asset/tone_ringtone.mpga"></audio>
+    <audio id="audio-wa" src="src/asset/tone_wa.mpga"></audio>
 </body>
 </html>

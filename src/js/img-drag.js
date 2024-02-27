@@ -36,8 +36,8 @@
         let posx = 100*posx_px/window.innerWidth;//in vw
         if (posx>=(edge_left + edge_right*0.4 - edge_left*0.4)){
             img_node.style.left = edge_right+'vw';
-            // document.removeEventListener('mouseup',on_mouse_up);
-            // document.removeEventListener('touchend',on_mouse_up);
+            document.removeEventListener('mouseup',on_mouse_up);
+            document.removeEventListener('touchend',on_mouse_up);
             if (typeof snap_half=='function'){
                 snap_half();
             }
