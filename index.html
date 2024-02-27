@@ -19,11 +19,7 @@
     </script>
 </head>
 <body class="bg-black"  class="no-select" style="overflow: hidden;">
-    <script type="module">
-        import componentLoad from "./src/js/component-load.js";
-        componentLoad("src/js/components/questionbox.html");
-    </script>
-    <div id="main" class="no-select" v-scope>
+    <div id="main" class="no-select" v-scope style="visibility: hidden;">
         <div id="room-start" class="no-select" v-show="vshow.startgame">
             <img id="img-start-text" class="no-select fullwidthabsolute" src="src/asset/start/bg-text.svg" />
             <img src="src/asset/start/elips.svg" id="img-start-circle" />
@@ -39,7 +35,7 @@
                 id="imgs1-wapopup"
                
                 v-show="vshow.imgs1wapopup"
-                class="wiggle06"/>
+                class="scalein-topcenter tadinya-wiggle06"/>
 
             <img
                 src="src/asset/s1/wa-open-empty.svg"
@@ -66,7 +62,7 @@
             <img src="src/asset/s2/email-popup.svg"
                 id="imgs2-emailpopup"
                 v-show="vshow.imgs2emailpopup"
-                class="wiggle06" />
+                class="scalein-topcenter tadinya-wiggle06" />
             <img src="src/asset/s2/email-openbg-noquestion.svg"
                 id="imgs2-emailopenbg"
                 v-show="vshow.imgs2emailopenbg"
@@ -98,7 +94,7 @@
                 id="imgs4-adsbg"
                 class="fullwidthabsolute"
                 v-show="vshow.imgs4adsbg" />
-            <img src="src/asset/s4/ads-img2.png"
+            <img src="src/asset/s4/ads-img3.png"
                 id="imgs4-adsimg"
                 v-show="vshow.imgs4adsimg"
                 class="" />
@@ -119,7 +115,7 @@
             <img src="src/asset/s5/sms-popup.png"
                 id="imgs5-smspopup"
                 v-show="vshow.imgs5smspopup"
-                class="wiggle06" />
+                class="scalein-topcenter tadinya-wiggle06" />
 
             <img src="src/asset/s5/sms-bg.svg"
                 id="imgs5-smsbg"
@@ -144,7 +140,7 @@
                 id="imgs6-wapopup"
                
                 v-show="vshow.imgs6wapopup"
-                class="wiggle06"/>
+                class="scalein-topcenter tadinya-wiggle06"/>
 
             <img
                 src="src/asset/s6/wa-open-empty.svg"
@@ -157,7 +153,9 @@
                 v-show="vshow.imgs6waopen1"
                 class="scalein" />
         </div>
-        <div id="room-result" class="no-select" v-show="vshow.result">
+        <div id="room-result" class="no-select" v-show="vshow.result"
+            @click="if (model_room.animation_scene==4) vshow.forcereset = true;"
+        >
             <img id="result-bg"
                 src="src/asset/result/bg.svg"
                 v-show="vshow.resultbg"
@@ -213,6 +211,22 @@
                         </span>
                 </li>
             </ol>
+        </div>
+        <div
+            id="force-reset"
+            v-show="vshow.forcereset"
+            >
+            <span v-html="model_room.story_reset_timer"></span>
+            <button
+                @click="model_room.story_reset_timer = 0"
+            >
+                Mulai baru sekarang
+            </button>
+            <button
+                @click="vshow.forcereset = false"
+            >
+                Tutup
+            </button>
         </div>
     </div>
 </body>

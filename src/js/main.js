@@ -1,5 +1,4 @@
 import imageDrag from "./img-drag.js";
-import componentLoad from "./component-load.js";
 import TextTyper from "./texttyper.js";
 
 function el(selector){
@@ -86,6 +85,7 @@ window.model_room = PetiteVue.reactive({
         imgs4adspopup: false,
         imgs4questionbox: false,
         imgs5lockscreen: false,
+        forcereset: false,
     },
     room_id: "startgame",//room 0 : start
     score: 0,//current score
@@ -183,20 +183,25 @@ window.model_room = PetiteVue.reactive({
     temp: null,//temporary variable
     animation_time_start: 0,
     animation_start: ()=>{
-        try {
-            let forceroomid = parseInt(
-                document.location.hash.replace('#','')
-            );
-            if (
-                isNaN(forceroomid)
-                || typeof(window.forceroomid_set)!='undefined'
-            ){}
-            else {
-                model_room.room_id = forceroomid;
+        if (typeof(window.forceroomid_set)=='undefined'){
+            try {
+                let forceroomid = parseInt(
+                    document.location.hash.replace('#','')
+                );
+                if (
+                    isNaN(forceroomid)
+                    || typeof(window.forceroomid_set)!='undefined'
+                ){}
+                else {
+                    model_room.room_id = forceroomid;
+                }
+                if (document.location.hash=='#result'){
+                    model_room.room_situation_queue = [5];
+                }
                 window.forceroomid_set = true;
-            }
-        }catch(e){}
-        
+            }catch(e){}
+        }
+
         model_room.animation_time_start = new Date().getTime() / 1000;
         try{clearInterval(window.animation_interval);}catch(e){}
         window.animation_interval = setInterval(
@@ -212,10 +217,25 @@ window.model_room = PetiteVue.reactive({
         mouse:0,
         touch:0
     },
+    story_reset: ()=>{
+        model_room.room_situation_queue = [1,2,3,4,5,6];
+        for (let key in model_room.vshow){
+            model_room.vshow[key] = false;
+        }
+        model_room.room_id = 'startgame';
+        model_room.animation_scene = 0;
+
+        el('#room-start').style.filter = 'opacity(1)';
+        el('#imgs4-adsimg').style.filter = 'none';
+        el('#result-bg').style.filter = 'none';
+        model_room.animation_start();
+    },
+    story_reset_timer: 60,
     story_loop:{
         startgame: ()=>{
             //start game
             model_room.vshow.startgame = true;
+            el('#room-start').style.filter = 'opacity(1)';
             model_room.animation_stop();
             var imgCircle = document.getElementById('img-start-circle');
             let next_room = function(){
@@ -535,6 +555,8 @@ window.model_room = PetiteVue.reactive({
             if (model_room.animation_scene==4){
                 model_room.vshow.resulttextbg = false;
                 model_room.vshow.resulttextneg = false;
+                model_room.vshow.resultcall0 = false;
+                model_room.vshow.resultcall1 = false;
                 if (model_room.score>=300){
                     model_room.vshow.resultpos = true;
                 }
@@ -542,6 +564,15 @@ window.model_room = PetiteVue.reactive({
                     model_room.vshow.resultneg = true;
                 }
                 model_room.vshow.resultticket = true;
+
+                model_room.story_reset_timer = 60;
+                model_room.temp = setInterval(()=>{
+                    model_room.story_reset_timer -= 1;
+                    if (model_room.story_reset_timer<=0){
+                        model_room.story_reset();
+                        clearInterval(model_room.temp);
+                    }
+                },1000);
             }
 
         },
@@ -549,6 +580,7 @@ window.model_room = PetiteVue.reactive({
 });
 
 function main() {
+    el('#main').style.visibility = 'visible';
     //all image must not be draggable
     els_act('img', (img)=>{img.draggable = false;});
     //start reactive template

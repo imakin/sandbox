@@ -465,6 +465,22 @@ body{
         }
     }
 }
+#force-reset{
+    position: absolute;
+    left:0;
+    top: 0;
+    display: block;
+    width: 100vw;
+    font-size: 12rem;
+    text-align: center;
+    color: white;
+    button{
+        font-size: 8rem;
+        padding: 1.5vw;
+        display: block;
+        margin: 0 auto;
+    }
+}
 .no-select{
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
