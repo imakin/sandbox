@@ -62,6 +62,7 @@ window.model_room = PetiteVue.reactive({
         4: false,
         5: false,
         6: false,
+        imglockscreen: true,
         result: false,
         room: false,
         video: false,
@@ -242,6 +243,7 @@ window.model_room = PetiteVue.reactive({
         for (let key in model_room.vshow){
             model_room.vshow[key] = false;
         }
+        model_room.vshow.imglockscreen = true;
         model_room.room_id = 'startgame';
         model_room.animation_scene = 0;
 
@@ -265,7 +267,7 @@ window.model_room = PetiteVue.reactive({
                 imgCircle.removeEventListener('click', next_room);
                 imgCircle.removeEventListener('touchstart', next_room);
                 imgCircle.style.left = '72vw';
-                el('#room-start').style.filter = 'opacity(0)';
+                el('#room-start').style.top = '-100vh';
                 setTimeout(()=>{
                     model_room.vshow.startgame = false;
                     model_room.next_question();
@@ -279,6 +281,11 @@ window.model_room = PetiteVue.reactive({
             model_room.vshow.imgs1lockscreen = true;
             model_room.vshow.imgs1wapopup = true;
             if (model_room.animation_scene==0){
+                // el(`#room-s${model_room.room_id}`).style.top = "100vh";
+                // el(`#room-s${model_room.room_id}`).style.transition = "top 0.5s";
+                // setTimeout(()=>{
+                //     el(`#room-s${model_room.room_id}`).style.top = "0vh";
+                // },500);
                 model_room.animation_stop();
                 let wapopup = el('#imgs1-wapopup');
                 // wapopup.outerHTML = wapopup.outerHTML;//reset event listener
@@ -339,6 +346,11 @@ window.model_room = PetiteVue.reactive({
             model_room.vshow[model_room.room_id] = true;
             model_room.animation_stop();
             if (model_room.animation_scene==0){
+                // el(`#room-s${model_room.room_id}`).style.top = "100vh";
+                // el(`#room-s${model_room.room_id}`).style.transition = "top 0.5s";
+                // setTimeout(()=>{
+                //     el(`#room-s${model_room.room_id}`).style.top = "0vh";
+                // },500);
                 model_room.vshow.questionbox = false;
                 model_room.vshow.imgs2lockscreen = true;
                 let lockscreen = el('#imgs2-lockscreen');
@@ -388,6 +400,11 @@ window.model_room = PetiteVue.reactive({
             model_room.vshow[model_room.room_id] = true;
             model_room.animation_stop();
             if (model_room.animation_scene==0){
+                // el(`#room-s${model_room.room_id}`).style.top = "100vh";
+                // el(`#room-s${model_room.room_id}`).style.transition = "top 0.5s";
+                // setTimeout(()=>{
+                //     el(`#room-s${model_room.room_id}`).style.top = "0vh";
+                // },500);
                 model_room.vshow.imgs3call = true;
                 model_room.vshow.imgs3phoneicon = true;
                 fadein(el('#imgs3-call'),1);
@@ -425,12 +442,19 @@ window.model_room = PetiteVue.reactive({
             model_room.vshow[model_room.room_id] = true;
             model_room.animation_stop();
             if (model_room.animation_scene==0){
+                // el(`#room-s${model_room.room_id}`).style.top = "100vh";
+                // el(`#room-s${model_room.room_id}`).style.transition = "top 0.5s";
+                // setTimeout(()=>{
+                //     el(`#room-s${model_room.room_id}`).style.top = "0vh";
+                // },500);
+                model_room.vshow.imglockscreen = false;
                 model_room.vshow.imgs4adsbg = true;
                 fadein(el('#imgs4-adsbg'),1,()=>{
                     model_room.vshow.imgs4adsimg = true;
                     setTimeout(()=>{
                         model_room.animation_scene = 1;
                         model_room.animation_start();
+                        model_room.vshow.imglockscreen = true;
                     },2000)
                 });
             }
@@ -449,6 +473,11 @@ window.model_room = PetiteVue.reactive({
             model_room.vshow[model_room.room_id] = true;
             model_room.animation_stop();
             if (model_room.animation_scene==0){
+                // el(`#room-s${model_room.room_id}`).style.top = "100vh";
+                // el(`#room-s${model_room.room_id}`).style.transition = "top 0.5s";
+                // setTimeout(()=>{
+                //     el(`#room-s${model_room.room_id}`).style.top = "0vh";
+                // },500);
                 model_room.vshow.imgs5lockscreen = true;
                 fadein(el('#imgs5-lockscreen'),1,()=>{
                     model_room.animation_scene = 1;
@@ -483,10 +512,15 @@ window.model_room = PetiteVue.reactive({
             }
         },
         6: ()=>{
-            //situation 1
+            //situation 6
             model_room.vshow[model_room.room_id] = true;
             model_room.vshow.imgs6lockscreen = true;
             if (model_room.animation_scene==0){
+                // el(`#room-s${model_room.room_id}`).style.top = "100vh";
+                // el(`#room-s${model_room.room_id}`).style.transition = "top 0.5s";
+                // setTimeout(()=>{
+                //     el(`#room-s${model_room.room_id}`).style.top = "0vh";
+                // },500);
                 model_room.animation_stop();
                 let wapopup = el('#imgs6-wapopup');
                 el('#audio-notif').play();
@@ -560,7 +594,7 @@ window.model_room = PetiteVue.reactive({
                 setTimeout(()=>{
                     model_room.animation_scene = 1;
                     model_room.animation_start();
-                },1500);
+                },500);
             }
             if (model_room.animation_scene==1){
                 model_room.vshow.resultcall0 = true;

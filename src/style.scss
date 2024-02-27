@@ -45,6 +45,7 @@ body{
     width: 100vw;
     height: auto;
     margin: 0;
+    transition: top 0.5s;
 }
 #main{
     text-align: center;
@@ -130,6 +131,10 @@ body{
         top: 5vh;
     }
 }
+#img-lockscreen{
+    z-index: 0;
+    transition: top 1s, opacity 1s;
+}
 #room-start{
     position: absolute;
     left: 0vw;
@@ -140,7 +145,7 @@ body{
     background-size: 100% auto;
     background-position: top auto;
     filter: opacity(1);
-    transition: filter 2s;
+    transition: filter 2s, top 0.5s;
     #img-start-circle{
         position: absolute;
         left: 12vw;
@@ -149,6 +154,9 @@ body{
         height: auto;
         // transition: left ease-out 0.5s;
     }
+}
+.room-situation{
+    @extend .fullwidthabsolute;
 }
 #room-s1{
     filter: opacity(0);

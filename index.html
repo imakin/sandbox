@@ -20,13 +20,28 @@
 </head>
 <body class="bg-black"  class="no-select" style="overflow: hidden;">
     <div id="main" class="no-select" v-scope style="visibility: hidden;">
-        <div id="room-start" class="no-select" v-show="vshow.startgame">
-            <img id="img-start-text" class="no-select fullwidthabsolute" src="src/asset/start/bg-text.svg" />
-            <img src="src/asset/start/elips.svg" id="img-start-circle" />
-        </div>
-        <div id="room-s1" class="no-select" v-show="vshow[1]">
+        <img
+            src="src/asset/lockscreen.svg"
+            id="img-lockscreen"
+            class="fullwidthabsolute"
+            v-show="vshow.imglockscreen"
+        />
+        <div
+           class="room-situation"  id="room-start"
+            class="no-select fullwidthabsolute"
+            v-show="vshow.startgame"
+        >
             <img
-                src="src/asset/s1/lockscreen.svg"
+                id="img-start-text"
+                class="no-select fullwidthabsolute"
+                src="src/asset/start/bg-text.svg" />
+            <img
+                src="src/asset/start/elips.svg"
+                id="img-start-circle" />
+        </div>
+        <div class="room-situation"  id="room-s1" class="no-select" v-show="vshow[1]">
+            <img
+                src="src/asset/lockscreen.svg"
                 id="imgs1-lockscreen"
                 class="fullwidthabsolute"
                 v-show="vshow.imgs1lockscreen"/>
@@ -53,9 +68,9 @@
                 v-show="vshow.imgs1waopen2"
                 class="scalein" />
         </div>
-        <div id="room-s2" class="no-select" v-show="vshow[2]">
+        <div class="room-situation"  id="room-s2" class="no-select" v-show="vshow[2]">
             <img
-                src="src/asset/s2/lockscreen.svg"
+                src="src/asset/lockscreen.svg"
                 id="imgs2-lockscreen"
                 class="fullwidthabsolute"
                 v-show="vshow.imgs2lockscreen" />
@@ -72,7 +87,7 @@
                 v-show="vshow.imgs2bgquestion"
                 class="fullwidthabsolute"/>
         </div>
-        <div id="room-s3" class="no-select" v-show="vshow[3]">
+        <div class="room-situation"  id="room-s3" class="no-select" v-show="vshow[3]">
             <img
                 src="src/asset/s3/call.svg"
                 id="imgs3-call"
@@ -88,7 +103,7 @@
                 class="fullwidthabsolute"
                 v-show="vshow.imgs3callbg" />
         </div>
-        <div id="room-s4" class="no-select" v-show="vshow[4]">
+        <div class="room-situation"  id="room-s4" class="no-select" v-show="vshow[4]">
             <img
                 src="src/asset/s4/ads-bg.svg"
                 id="imgs4-adsbg"
@@ -107,7 +122,7 @@
                 v-show="vshow.imgs4questionbox"
                 />
         </div>
-        <div id="room-s5" class="no-select" v-show="vshow[5]">
+        <div class="room-situation"  id="room-s5" class="no-select" v-show="vshow[5]">
             <img src="src/asset/s1/lockscreen.svg"
                 id="imgs5-lockscreen"
                 class="fullwidthabsolute"
@@ -129,7 +144,7 @@
                 id="imgs5-questionbox"
                 v-show="vshow.imgs5questionbox" />
         </div>
-        <div id="room-s6" class="no-select" v-show="vshow[6]">
+        <div class="room-situation"  id="room-s6" class="no-select" v-show="vshow[6]">
             <img
                 src="src/asset/s1/lockscreen.svg"
                 id="imgs6-lockscreen"
