@@ -1,6 +1,9 @@
 import imageDrag from "./img-drag.js";
 import TextTyper from "./texttyper.js";
 
+//disable right click
+document.addEventListener('contextmenu', event => event.preventDefault());
+
 function el(selector){
     return document.querySelector(selector);
 }

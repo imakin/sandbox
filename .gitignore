@@ -1,3 +1,5 @@
 node_modules
 yarn.lock
-*.mp4
+#*.mp4
+*call.mp4
+*wa.mp4
