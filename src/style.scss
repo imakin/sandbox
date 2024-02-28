@@ -258,7 +258,7 @@ body{
         left: 0;
         width: 100vw;
         height: auto;
-        @include scroll(88.1vh, 60vh, 1s, ease-in);
+        @include scroll(88vh, 60vh, 1s, linear);
         animation-iteration-count: 1;
     }
 }
@@ -290,7 +290,7 @@ body{
         $left: 0px;
 
         @include designposition($top, $left, $width);        
-        @include scroll(88.1vh, 60vh, 1s, ease-in);
+        @include scroll(88vh, 60vh, 1s, linear);
     }
 }
 #room-s6{

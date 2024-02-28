@@ -312,14 +312,14 @@ body {
   width: 100vw;
   height: auto;
   position: absolute;
-  top: 88.1vh;
-  animation: scrollanimation1 1s ease-in;
+  top: 88vh;
+  animation: scrollanimation1 1s linear;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
 }
 @keyframes scrollanimation1 {
   0% {
-    top: 88.1vh;
+    top: 88vh;
   }
   100% {
     top: 60vh;
@@ -347,13 +347,13 @@ body {
   width: 100vw;
   height: auto;
   position: absolute;
-  top: 88.1vh;
-  animation: scrollanimation2 1s ease-in;
+  top: 88vh;
+  animation: scrollanimation2 1s linear;
   animation-fill-mode: forwards;
 }
 @keyframes scrollanimation2 {
   0% {
-    top: 88.1vh;
+    top: 88vh;
   }
   100% {
     top: 60vh;
