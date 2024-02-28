@@ -389,7 +389,16 @@ body{
         $left: 360px;
         @include designposition($top, $left, $width);
         z-index: 5;
-
+    }
+    #result-subtitle{
+        //design size
+        $width: 1950px;
+        $height: 2850px;
+        $top: 903px;
+        $left: 101px;
+        $radius: 110px;
+        @include designposition($top, $left, $width);
+        border-radius: 100vw * calc($radius / $mockup_width);
     }
 }
 #question-box{
@@ -430,6 +439,15 @@ body{
         width: 100vw * calc(1395px / 2160px);
         margin: 0.5vh auto;
         padding: 3vw 5vw;
+    }
+    &.show-hint{
+        li.choice{
+            background-color: #ff4b4b;
+            &.score-100{
+                background-color: #4b4bff;
+            }
+
+        }
     }
 }
 

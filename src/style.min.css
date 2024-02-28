@@ -447,6 +447,14 @@ body {
   height: auto;
   z-index: 5;
 }
+#room-result #result-subtitle {
+  position: absolute;
+  top: 23.515625vh;
+  left: 4.6759259259vw;
+  width: 90.2777777778vw;
+  height: auto;
+  border-radius: 5.0925925926vw;
+}
 
 #question-box {
   position: absolute;
@@ -483,6 +491,12 @@ body {
   width: 64.5833333333vw;
   margin: 0.5vh auto;
   padding: 3vw 5vw;
+}
+#question-box.show-hint li.choice {
+  background-color: #ff4b4b;
+}
+#question-box.show-hint li.choice.score-100 {
+  background-color: #4b4bff;
 }
 
 #old-question {

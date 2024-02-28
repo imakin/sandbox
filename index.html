@@ -206,6 +206,17 @@
             <img id="result-ticket"
                 src="src/asset/result/ticket.svg"
                 v-show="vshow.resultticket" />
+
+            <video
+                width="1950"
+                height="2850"
+                id="result-subtitle"
+                v-show="vshow.resultsubtitle"
+            >
+                <source
+                    src="src/asset/result/sub.mp4"
+                    type="video/mp4">
+            </video>
         </div>
         <div
             id="question-box"
@@ -219,16 +230,17 @@
                 >
             </div>
             <ol>
+                <template v-for="choice 
+                in model_room.get_current_choices_shuffled()"
+                >
                 <li
-                    v-for="choice 
-                        in model_room.get_current_choices_shuffled()"
-                    class="choice"
-                    @click="model_room.choice_select(choice);
-                            model_room.next_question();"
+                    :class="[`choice`, `score-${Object.keys(choice)[0]}`]"
+                    @click="model_room.choice_select(choice);"
                     >
                         <span v-html="choice[Object.keys(choice)[0]]">
                         </span>
                 </li>
+                </template>
             </ol>
         </div>
         <div

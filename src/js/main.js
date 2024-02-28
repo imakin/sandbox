@@ -160,6 +160,11 @@ window.model_room = PetiteVue.reactive({
     choice_select(choice){
         let additional_score = Object.keys(choice)[0];
         model_room.score += parseInt(additional_score);
+        el('#question-box').classList.add('show-hint');
+        setTimeout(()=>{
+            el('#question-box').classList.remove('show-hint');
+            model_room.next_question();
+        }, 2000);
     },
     room_situation_queue: [1,2,3,4,5,6],
     next_question(){
@@ -248,11 +253,13 @@ window.model_room = PetiteVue.reactive({
         model_room.animation_scene = 0;
 
         el('#room-start').style.filter = 'opacity(1)';
+        el('#room-start').style.top = '0vh';
         el('#imgs4-adsimg').style.filter = 'none';
         el('#result-bg').style.filter = 'none';
         el('#result-call0').style.filter = 'opacity(1)';
         el('#img-start-circle').style.left = '12vw';
         el('#imgs3-phoneicon').style.left = '10.5vw';
+        el('#result-subtitle').style.filter = 'none';
         model_room.animation_start();
     },
     story_reset_timer: 60,
@@ -618,19 +625,29 @@ window.model_room = PetiteVue.reactive({
             if (model_room.animation_scene==3){
                 model_room.vshow.resultpos = false;
                 model_room.vshow.resultneg = false;
-                model_room.vshow.resulttextneg = true;
-                fadein(el('#result-textneg'), 1);
-                if (model_room.score>=300){
-                    model_room.vshow.resulttextbg = true;
-                    fadein(el('#result-textbg'), 1);
-                }
-                else{
-                }
-                el('#audio-call').play();
+                // model_room.vshow.resulttextneg = true;
+                // fadein(el('#result-textneg'), 1);
+                // if (model_room.score>=300){
+                //     model_room.vshow.resulttextbg = true;
+                //     fadein(el('#result-textbg'), 1);
+                // }
+                // else{
+                // }
+                // el('#audio-call').play();
+                model_room.vshow.resultsubtitle = true;
+                el('#result-subtitle').currentTime = 0;
+                el('#result-subtitle').play();
                 setTimeout(()=>{
+                    el('#result-subtitle').pause();
+                    fadeout(el('#result-subtitle'), 1);
+                    setTimeout(()=>{
+                        model_room.vshow.resultsubtitle = false;
+                        el('#result-subtitle').currentTime = 0;
+                        el('#result-subtitle').style.filter = 'none';
+                    },1000);
                     model_room.animation_scene = 4;
                     model_room.animation_start();
-                }, 13000);
+                }, 14000);
             }
             if (model_room.animation_scene==4){
                 model_room.vshow.resulttextbg = false;
