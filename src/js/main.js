@@ -226,6 +226,7 @@ window.model_room = PetiteVue.reactive({
             console.log("will not reset repeatedly");
             return;
         }
+        model_room.score = 0;
         model_room.reset_time = current_time;
         console.log('reset');
         model_room.room_situation_queue = [1,2,3,4,5,6];
