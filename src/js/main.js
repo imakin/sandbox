@@ -115,21 +115,21 @@ window.model_room = PetiteVue.reactive({
             choices: [
                 {0: "Membiarkan lanjut bicara"},
                 {0: "Setuju dengan penawaran"},
-                {100: "Berkata kalau tidak tertarik"},
+                {100: "Langsung tutup telepon"},
             ],
         },
         4: {
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Langsung klik iklan"},
-                {0: "Ajak teman ikut investasi"},
-                {100: "Menutup iklan"},
+                {0: "Share iklan ke teman"},
+                {100: "Abaikan dan tutup iklan"},
             ],
         },
         5: {
             question: "Apa yang akan kamu lakukan?",
             choices: [
-                {0: "Klik link aktivasi"},
+                {0: "Segera klik link aktivasi"},
                 {0: "Berikan nomor kartu kredit"},
                 {100: "Blok nomor pengirim pesan"},
             ],
