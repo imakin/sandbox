@@ -412,10 +412,10 @@ body {
 }
 @keyframes scaleHeight0 {
   from {
-    height: 411px;
+    height: 10.703125vh;
   }
   to {
-    height: 627px;
+    height: 10.703125vh;
   }
 }
 #room-result #result-textneg {

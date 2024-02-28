@@ -352,7 +352,9 @@ body{
         $left: 263px;
         $border-radius: 197px;
         @include designposition($top, $left, $width);
-        @include scaleheight(411px, 627px, 0.3s);
+        $scaleh0: 100vh * calc(411px / $mockup_height);
+        $scaleh1: 100vh * calc(411px / $mockup_height);
+        @include scaleheight($scaleh0, $scaleh1, 0.3s);
         z-index: 3;
     }
     #result-textneg{
