@@ -305,11 +305,10 @@ body{
     }
     #imgs6-waopen1{
         //design size
-        $width: 1358px;
-        $height: 1423px;
-        $top: 801px;
-        $left: 144px;
-
+        $width: 1370px;
+        $height: 1432px;
+        $top: 621px;
+        $left: 145px;
         @include designposition($top, $left, $width);
     }
 }
