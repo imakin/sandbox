@@ -98,7 +98,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Klik bukti pengiriman paket"},
-                {50: "Cek profil Whatsapp"},
+                {0: "Cek profil Whatsapp"},
                 {100: "Tidak menjawab pesan"},
             ],
         },
@@ -106,7 +106,7 @@ window.model_room = PetiteVue.reactive({
             question: "Kamu bakal ambil langkah apa?",
             choices: [
                 {0: "Isi form data diri"},
-                {50: "Menghapus email"},
+                {0: "Menghapus email"},
                 {100: "Report as spam"},
             ],
         },
@@ -114,7 +114,7 @@ window.model_room = PetiteVue.reactive({
             question: "Kamu bakal ambil langkah apa?",
             choices: [
                 {0: "Membiarkan lanjut bicara"},
-                {50: "Bertanya indentitas kantor"},
+                {0: "Bertanya indentitas kantor"},
                 {100: "Berkata kalau tidak tertarik"},
             ],
         },
@@ -122,7 +122,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Langsung klik iklan"},
-                {50: "Riset tentang lembaga investasi"},
+                {0: "Riset tentang lembaga investasi"},
                 {100: "Menutup iklan"},
             ],
         },
@@ -130,7 +130,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Klik link aktivasi"},
-                {50: "Cek aplikasi kartu kredit"},
+                {0: "Cek aplikasi kartu kredit"},
                 {100: "Blok nomor pengirim pesan"},
             ],
         },
@@ -138,7 +138,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Klik tombol &quot;view&quot;"},
-                {50: "Memastikan nomor pengirim"},
+                {0: "Memastikan nomor pengirim"},
                 {100: "Blok nomor pengirim"},
             ],
         },
@@ -594,7 +594,7 @@ window.model_room = PetiteVue.reactive({
                 setTimeout(()=>{
                     let bg = el('#result-bg');
                     bg.style.filter = 'blur(15px)';
-                    if (model_room.score>=300){
+                    if (model_room.score>=400){
                         model_room.vshow.resultpos = true;
                     }
                     else{
@@ -630,7 +630,7 @@ window.model_room = PetiteVue.reactive({
                 model_room.vshow.resultneg = false;
                 // model_room.vshow.resulttextneg = true;
                 // fadein(el('#result-textneg'), 1);
-                // if (model_room.score>=300){
+                // if (model_room.score>=400){
                 //     model_room.vshow.resulttextbg = true;
                 //     fadein(el('#result-textbg'), 1);
                 // }
@@ -657,7 +657,7 @@ window.model_room = PetiteVue.reactive({
                 model_room.vshow.resulttextneg = false;
                 model_room.vshow.resultcall0 = false;
                 model_room.vshow.resultcall1 = false;
-                if (model_room.score>=300){
+                if (model_room.score>=400){
                     model_room.vshow.resultpos = true;
                 }
                 else{
