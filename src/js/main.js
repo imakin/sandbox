@@ -98,7 +98,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Klik bukti pengiriman paket"},
-                {0: "Cek profil Whatsapp"},
+                {0: "Membalas chat pesan"},
                 {100: "Tidak menjawab pesan"},
             ],
         },
@@ -106,7 +106,7 @@ window.model_room = PetiteVue.reactive({
             question: "Kamu bakal ambil langkah apa?",
             choices: [
                 {0: "Isi form data diri"},
-                {0: "Menghapus email"},
+                {0: "Klik link formulir"},
                 {100: "Report as spam"},
             ],
         },
@@ -114,7 +114,7 @@ window.model_room = PetiteVue.reactive({
             question: "Kamu bakal ambil langkah apa?",
             choices: [
                 {0: "Membiarkan lanjut bicara"},
-                {0: "Bertanya indentitas kantor"},
+                {0: "Setuju dengan penawaran"},
                 {100: "Berkata kalau tidak tertarik"},
             ],
         },
@@ -122,7 +122,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Langsung klik iklan"},
-                {0: "Riset tentang lembaga investasi"},
+                {0: "Ajak teman ikut investasi"},
                 {100: "Menutup iklan"},
             ],
         },
@@ -130,7 +130,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Klik link aktivasi"},
-                {0: "Cek aplikasi kartu kredit"},
+                {0: "Berikan nomor kartu kredit"},
                 {100: "Blok nomor pengirim pesan"},
             ],
         },
@@ -138,7 +138,7 @@ window.model_room = PetiteVue.reactive({
             question: "Apa yang akan kamu lakukan?",
             choices: [
                 {0: "Klik tombol &quot;view&quot;"},
-                {0: "Memastikan nomor pengirim"},
+                {0: "Forward pesan"},
                 {100: "Blok nomor pengirim"},
             ],
         },
