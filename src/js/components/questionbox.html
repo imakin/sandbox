@@ -1,0 +1,38 @@
+<script>
+    function QuestionBox(props) {
+        return {
+            $template: '#counter-template',
+            question_text: props.question_text??"Apa yang akan kamu lakukan?",
+            choices: props.choices,
+            on_mounted(){
+                console.log(this.question_text);
+            },
+            inc() {
+                this.count++
+            }
+        }
+    }
+  
+    window.questionboxapp = PetiteVue.createApp({
+        QuestionBox
+    });
+    let targets = document.querySelectorAll('[late-v-scope]');
+
+    Array.from(targets).forEach(target=>{
+        target.setAttribute('v-scope',target.getAttribute('late-v-scope'))
+        if (target.id){}
+        else{
+            target.id = `random_id_${Date.now()}`
+        }
+        questionboxapp.mount(target.id);
+        console.log(`mounting ${target.id}`)
+    })
+</script>
+
+<template id="questionbox-template">
+    <div class="question-text">{{ question_text }}</div>
+    <button v-for="choice in choices">
+        {{ choice }}
+    </button>
+</template>
+  
