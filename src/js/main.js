@@ -169,7 +169,9 @@ window.model_room = PetiteVue.reactive({
             model_room.next_question();
         }, 2000);
     },
-    room_situation_queue: [1,2,3,4,5,6],
+    // room_situation_queue: [1,2,3,4,5,6],
+    room_situation_used: [1,4,5,6],
+    room_situation_queue: [], // will be Array.from(room_situation_used) on init/reset
     next_question(){
         model_room.vshow[model_room.room_id] = false;//hide previous room
         //set room_id to the next unseen room, and start animation
@@ -229,7 +231,7 @@ window.model_room = PetiteVue.reactive({
         model_room.score = 0;
         model_room.reset_time = current_time;
         console.log('reset');
-        model_room.room_situation_queue = [1,2,3,4,5,6];
+        model_room.room_situation_queue = Array.from(model_room.room_situation_used);
         if (typeof(window.forceroomid_set)=='undefined'){
             try {
                 let forceroomid = parseInt(
@@ -658,7 +660,7 @@ window.model_room = PetiteVue.reactive({
                 model_room.vshow.resulttextneg = false;
                 model_room.vshow.resultcall0 = false;
                 model_room.vshow.resultcall1 = false;
-                if (model_room.score>=400){
+                if (model_room.score>=300){
                     model_room.vshow.resultpos = true;
                 }
                 else{
